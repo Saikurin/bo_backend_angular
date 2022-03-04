@@ -1,0 +1,15 @@
+nz-layout {
+    height: 100%;
+}
+
+app-header {
+    line-height: 64px;
+}
+
+nz-content {
+      padding: 0 50px;
+}
+
+app-footer {
+    text-align: center;
+}
