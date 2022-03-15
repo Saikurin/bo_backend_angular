@@ -10,7 +10,13 @@
                          [nzMax]="100" [nzMin]="0"
                          [nzParser]="parserPercent" [nzStep]="0.5"></nz-input-number>
         <ng-template #suffixTemplate>
-            <i (click)="show = !show" [nzType]="show ? 'close' : 'edit'" nz-icon></i>
+            <nz-switch
+                    (ngModelChange)="show = !show"
+                    [ngModel]="show"
+                    [nzCheckedChildren]="checkedTemplate"
+                    [nzUnCheckedChildren]="checkedTemplate"
+            ></nz-switch>
+            <ng-template #checkedTemplate><i nz-icon nzType="edit"></i></ng-template>
         </ng-template>
     </nz-input-group>
 </td>
