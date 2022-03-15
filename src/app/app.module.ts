@@ -33,14 +33,15 @@ import {CategoriesService} from "./core/services/categories.service";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {ProductsRowComponent} from './features/products-row/products-row.component';
 import {CsrfInterceptor} from "./core/interceptors/csrf.interceptor";
+import {NzInputNumberModule} from "ng-zorro-antd/input-number";
 
 registerLocaleData(fr);
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, HeaderComponent, FooterComponent, BreadcrumbComponent, DetailsProduitComponent, TableProductsComponent, ProductsRowComponent,],
+    declarations: [AppComponent, HomeComponent, HeaderComponent, FooterComponent, BreadcrumbComponent, DetailsProduitComponent, TableProductsComponent, ProductsRowComponent],
     imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, BrowserAnimationsModule, NzMenuModule, NzIconModule, NzLayoutModule, NzBreadCrumbModule, NzGridModule, NzCascaderModule, NzSelectModule, NzButtonModule, NzDividerModule, NzStatisticModule, NzInputModule, NzNotificationModule, NzTableModule, ReactiveFormsModule, HttpClientXsrfModule.withOptions({
         headerName: 'X-CSRFToken', cookieName: 'csrftoken'
-    })],
+    }), NzInputNumberModule],
     providers: [{
         provide: NZ_I18N,
         useValue: fr_FR
