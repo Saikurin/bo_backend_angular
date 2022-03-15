@@ -74,24 +74,13 @@ export class TableProductsComponent implements OnInit {
                     }
                 }
             })
-            /*
-                        this.categories.map(c => {
-                            c.products.map(product => {
-                                if (product.id === pu.id) {
-                                    (pu.add) ? product.quantity_stock += pu.add : product.quantity_stock += 0;
-                                    (pu.remove) ? product.quantity_stock -= pu.remove : product.quantity_stock -= 0;
-                                }
-                                console.log(product);
-                                products.push(product);
-                            });
-                        });*/
 
             this.productService.updateMassive(products).subscribe({
                 next: () => {
-                    // TODO: Update objects in tables without refresh page
                     this.notificationService.successNotification("Modification massive", "La modification massive a bien été effectuée");
                 }, error: (err) => {
                     this.notificationService.dangerNotification("Erreur", "Une erreur interne est survenue");
+                    console.error(err);
                 }
             })
         }

@@ -19,6 +19,9 @@ export class ProductsRowComponent implements OnInit {
     @Output() onUpdateRemoveToInventory = new EventEmitter<number>();
     show: boolean = false;
     hasError: boolean = false;
+    formatterPercent = (value: number): string => `${value} %`;
+    parserPercent = (value: string): string => value.replace(' %', '');
+
 
     constructor() {
     }
@@ -32,8 +35,9 @@ export class ProductsRowComponent implements OnInit {
         })
     }
 
-    updateDiscountPrice() {
-        if(this.product.discount < 0 || this.product.discount  >100) {
+    updateDiscountPrice($event: number) {
+        this.product.discount = $event;
+        if (this.product.discount < 0 || this.product.discount > 100) {
             this.hasError = true;
         } else {
             this.hasError = false;

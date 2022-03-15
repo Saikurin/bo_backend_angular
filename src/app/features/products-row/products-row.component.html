@@ -5,10 +5,12 @@
 </td>
 <td [style]="hasError ? 'background-color: red' : ''">
     <nz-input-group [nzSuffix]="suffixTemplate">
-        <input nz-input [(ngModel)]="product.discount" (ngModelChange)="updateDiscountPrice()" [disabled]="!show"  />
-
+        <nz-input-number (ngModelChange)="updateDiscountPrice($event)" [(ngModel)]="product.discount" [disabled]="!show"
+                         [nzFormatter]="formatterPercent"
+                         [nzMax]="100" [nzMin]="0"
+                         [nzParser]="parserPercent" [nzStep]="0.5"></nz-input-number>
         <ng-template #suffixTemplate>
-            <i nz-icon [nzType]="show ? 'close' : 'edit'" (click)="show = !show"></i>
+            <i (click)="show = !show" [nzType]="show ? 'close' : 'edit'" nz-icon></i>
         </ng-template>
     </nz-input-group>
 </td>
@@ -16,8 +18,8 @@
 <td>{{product.quantity_sold}}</td>
 <td>{{product.comments}}</td>
 <td>
-    <input nz-input type="number" [formControl]="addToInventory"/>
+    <input [formControl]="addToInventory" nz-input type="number"/>
 </td>
 <td>
-    <input nz-input type="number" [formControl]="removeToInventory"/>
+    <input [formControl]="removeToInventory" nz-input type="number"/>
 </td>
