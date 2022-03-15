@@ -1,0 +1,23 @@
+<td>{{product.name}}</td>
+<td>{{product.price}}</td>
+<td>
+    <ng-container *ngIf="product.discount > 0">{{product.price_on_sale}}</ng-container>
+</td>
+<td [style]="hasError ? 'background-color: red' : ''">
+    <nz-input-group [nzSuffix]="suffixTemplate">
+        <input nz-input [(ngModel)]="product.discount" (ngModelChange)="updateDiscountPrice()" [disabled]="!show"  />
+
+        <ng-template #suffixTemplate>
+            <i nz-icon [nzType]="show ? 'close' : 'edit'" (click)="show = !show"></i>
+        </ng-template>
+    </nz-input-group>
+</td>
+<td>{{product.quantity_stock}}</td>
+<td>{{product.quantity_sold}}</td>
+<td>{{product.comments}}</td>
+<td>
+    <input nz-input type="number" [formControl]="addToInventory"/>
+</td>
+<td>
+    <input nz-input type="number" [formControl]="removeToInventory"/>
+</td>

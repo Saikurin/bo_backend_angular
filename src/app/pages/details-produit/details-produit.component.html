@@ -1,3 +1,66 @@
 <app-breadcrumb [parents]="['Produit']"></app-breadcrumb>
 <div class="inner-content">
+    <nz-row>
+        <div nz-col nzSpan="24">
+            <h1 style="text-align: center">Recherche d'un produit</h1>
+        </div>
+    </nz-row>
+    <nz-row>
+        <nz-col nzSpan="24">
+            <nz-select (ngModelChange)="selectValue($event)" nzSize="large" nzAutoFocus nzShowSearch
+                       nzPlaceHolder="Selectionner un produit" [(ngModel)]="selectedValue">
+                <nz-option *ngFor="let option of options" [nzValue]="option.id" [nzLabel]="option.name"></nz-option>
+            </nz-select>
+        </nz-col>
+    </nz-row>
 </div>
+<ng-container *ngIf="product">
+    <div class="inner-content" style="margin-top: 10px;">
+        <nz-row>
+            <nz-col nzSpan="6">
+                <h3>{{product?.name}}</h3>
+            </nz-col>
+            <nz-col nzSpan="4" nzOffset="14">
+                <button nz-button nzBlock nzType="primary"
+                        [nzDanger]="!product?.availability">{{product?.availability ? "Disponible" : "Indisponible"}}</button>
+            </nz-col>
+        </nz-row>
+        <nz-row>
+            <nz-col nzSpan="8">
+                <nz-statistic [nzValue]="(product?.quantity_sold | number)!" nzTitle="Quantité vendus"></nz-statistic>
+            </nz-col>
+            <nz-col nzSpan="8">
+                <nz-statistic [nzValue]="(product?.quantity_stock |number)!" nzTitle="Stock restant"></nz-statistic>
+            </nz-col>
+            <nz-col nzSpan="8">
+                <nz-statistic [nzValue]="((product.price * product.quantity_sold)|number)!"
+                              nzTitle="Rentabilité"></nz-statistic>
+            </nz-col>
+        </nz-row>
+    </div>
+    <div class="inner-content" style="margin-top: 10px;">
+        <nz-row>
+            <nz-col nzSpan="8">
+                <ng-template #suffixButton>
+                    <button nz-button nzType="primary" nzSize="large" (click)="addArticleToInventory()">Ajouter</button>
+                    <button nz-button nzType="primary" nzDanger nzSize="large" (click)="removeArticleToInventory()">
+                        Enlever
+                    </button>
+                </ng-template>
+                <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton" nzAddOnBefore="Modification du stock">
+                    <input type="number" nz-input placeholder="Nombre d'article" [(ngModel)]="editInventory"/>
+                </nz-input-group>
+            </nz-col>
+            <nz-col nzSpan="8" nzOffset="1">
+                <ng-template #suffixPercentage>
+                    <button nz-button nzType="primary" nzSize="large" (click)="editPercentage()">Modifier</button>
+                </ng-template>
+                <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixPercentage" nzAddOnBefore="Modification de la réduction">
+                    <input type="number" nz-input placeholder="Nombre d'article" [(ngModel)]="editPercentageValue"/>
+                </nz-input-group>
+            </nz-col>
+        </nz-row>
+    </div>
+</ng-container>
+
+

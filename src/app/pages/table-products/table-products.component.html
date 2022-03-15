@@ -1,0 +1,33 @@
+<app-breadcrumb [parents]="['Tableaux des produits']"></app-breadcrumb>
+<div class="inner-content">
+    <ng-container #table *ngFor="let category of categories">
+        <h2>{{category.name}}</h2>
+        <nz-divider></nz-divider>
+        <nz-table [nzData]="category.products" nzSize="small" nzTableLayout="fixed">
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prix</th>
+                <th>Prix en promotion</th>
+                <th>Promotions (%)</th>
+                <th>Stock</th>
+                <th>Vendu</th>
+                <th>Commentaires</th>
+                <th>Ajouter</th>
+                <th>Enlever</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr (onUpdateAddToInventory)="onUpdateAddToInventory(product, $event)"
+                (onUpdateRemoveToInventory)="onUpdateRemoveToInventory(product, $event)"
+                *ngFor="let product of category.products; let i = index" [product]="product"
+                app-products-row></tr>
+            </tbody>
+        </nz-table>
+    </ng-container>
+    <nz-row>
+        <nz-col nzOffset="20" nzSpan="4">
+            <button nz-button nzType="primary" nzBlock (click)="updateInventory()">Envoyer les données</button>
+        </nz-col>
+    </nz-row>
+</div>
