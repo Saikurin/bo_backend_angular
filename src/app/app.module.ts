@@ -44,12 +44,9 @@ registerLocaleData(fr);
         headerName: 'X-CSRFToken', cookieName: 'csrftoken'
     }), NzInputNumberModule, NzSwitchModule],
     providers: [{
-        provide: NZ_I18N,
-        useValue: fr_FR
+        provide: NZ_I18N, useValue: fr_FR
     }, ProductsService, NotificationService, CategoriesService, {
-        provide: HTTP_INTERCEPTORS,
-        useClass: CsrfInterceptor,
-        multi: true
+        provide: HTTP_INTERCEPTORS, useClass: CsrfInterceptor, multi: true
     }],
     bootstrap: [AppComponent]
 })

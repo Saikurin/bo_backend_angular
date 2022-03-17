@@ -27,5 +27,12 @@
     <input [formControl]="addToInventory" nz-input type="number"/>
 </td>
 <td>
-    <input [formControl]="removeToInventory" nz-input type="number"/>
+
+    <nz-input-group>
+        <input [formControl]="removeToInventory" nz-input type="number" style="width: 40%"/>
+        <nz-select [formControl]="reasonRemoveToInventory" [ngModel]="'retrait-par-vente'" style="width: 60%">
+            <nz-option [nzValue]="'retrait-par-vente'" [nzLabel]="'Retrait par vente'"></nz-option>
+            <nz-option [nzValue]="'retrait-par-invendus'" [nzLabel]="'Retrait par invendus'"></nz-option>
+        </nz-select>
+    </nz-input-group>
 </td>

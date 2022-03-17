@@ -3,7 +3,7 @@
     <ng-container #table *ngFor="let category of categories">
         <h2>{{category.name}}</h2>
         <nz-divider></nz-divider>
-        <nz-table [nzData]="category.products" nzSize="small" nzTableLayout="fixed">
+        <nz-table [nzData]="category.products" nzSize="small">
             <thead>
             <tr>
                 <th>Nom</th>
@@ -20,7 +20,7 @@
             <tbody>
             <tr (onUpdateAddToInventory)="onUpdateAddToInventory(product, $event)"
                 (onUpdateRemoveToInventory)="onUpdateRemoveToInventory(product, $event)"
-                *ngFor="let product of category.products; let i = index" [product]="product"
+                *ngFor="let product of category.products; let i = index" [product]="product" [histories]="histories"
                 app-products-row></tr>
             </tbody>
         </nz-table>

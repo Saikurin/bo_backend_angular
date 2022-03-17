@@ -10,28 +10,33 @@ import {FormControl} from "@angular/forms";
 export class ProductsRowComponent implements OnInit {
 
     @Input() product!: Product;
-    @Output() updateRequest = new EventEmitter<string>();
+    @Input() histories!: any[];
 
     addToInventory = new FormControl('');
     removeToInventory = new FormControl('');
+    reasonRemoveToInventory = new FormControl('retrait-par-vente');
 
     @Output() onUpdateAddToInventory = new EventEmitter<number>();
-    @Output() onUpdateRemoveToInventory = new EventEmitter<number>();
+    @Output() onUpdateRemoveToInventory = new EventEmitter<any>();
     show: boolean = false;
     hasError: boolean = false;
-    formatterPercent = (value: number): string => `${value} %`;
-    parserPercent = (value: string): string => value.replace(' %', '');
-
 
     constructor() {
     }
+
+    formatterPercent = (value: number): string => `${value} %`;
+
+    parserPercent = (value: string): string => value.replace(' %', '');
 
     ngOnInit(): void {
         this.addToInventory.valueChanges.subscribe(x => {
             this.onUpdateAddToInventory.emit(x);
         })
         this.removeToInventory.valueChanges.subscribe(x => {
-            this.onUpdateRemoveToInventory.emit(x);
+            this.onUpdateRemoveToInventory.emit({x: x, reason: this.reasonRemoveToInventory.value});
+        })
+        this.reasonRemoveToInventory.valueChanges.subscribe(x => {
+            this.onUpdateRemoveToInventory.emit({x: this.removeToInventory.value, reason: x});
         })
     }
 
