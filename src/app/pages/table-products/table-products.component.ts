@@ -7,7 +7,6 @@ import {Product} from "../../core/interfaces/product";
 import {ProductsService} from "../../core/services/products.service";
 import {Histories} from "../../core/interfaces/histories";
 import {HistoriesService} from "../../core/services/histories.service";
-import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-table-products',
@@ -77,6 +76,10 @@ export class TableProductsComponent implements OnInit {
                     let product = products.find(p => p.id === o.id)
                     if (product) {
                         product.quantity_stock += (o.add ?? 0);
+                        if (o.remove > 0 && product.quantity_stock < o.remove) {
+                            this.notificationService.dangerNotification('Erreur de quantité', 'Il n\' y a pas assez de stock.');
+                            return;
+                        }
                         product.quantity_stock -= (o.remove ?? 0);
                     }
                     if ('remove' in o && o['remove'] > 0) {
@@ -87,8 +90,8 @@ export class TableProductsComponent implements OnInit {
                             histories.push(history);
                         }
                     }
-                    if('add' in o && o['add'] > 0) {
-                        if(product) {
+                    if ('add' in o && o['add'] > 0) {
+                        if (product) {
                             let history: Histories = {
                                 product: product, quantity: o.add, type: 'ajout', created_at: new Date()
                             }
