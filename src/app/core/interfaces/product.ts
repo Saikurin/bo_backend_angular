@@ -1,3 +1,5 @@
+import {Histories} from "./histories";
+
 export interface Product {
     comments: string,
     category: number,
@@ -11,5 +13,7 @@ export interface Product {
     unit: string,
     name: string,
     quantity_stock: number,
-    quantity_sold: number
+    quantity_sold: number,
+    histories: Histories[],
+    price_on_purchase: number
 }

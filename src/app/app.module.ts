@@ -39,14 +39,17 @@ import { DataHistoryComponent } from './pages/data-history/data-history.componen
 import {NzTabsModule} from "ng-zorro-antd/tabs";
 import { HistoryTurnoverComponent } from './pages/content/history-turnover/history-turnover.component';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
+import {NzBadgeModule} from "ng-zorro-antd/badge";
+import {NzCardModule} from "ng-zorro-antd/card";
+import { HistoryResultsComponent } from './pages/content/history-results/history-results.component';
 
 registerLocaleData(fr);
 
 @NgModule({
-    declarations: [AppComponent, HomeComponent, HeaderComponent, FooterComponent, BreadcrumbComponent, DetailsProduitComponent, TableProductsComponent, ProductsRowComponent, DataHistoryComponent, HistoryTurnoverComponent],
+    declarations: [AppComponent, HomeComponent, HeaderComponent, FooterComponent, BreadcrumbComponent, DetailsProduitComponent, TableProductsComponent, ProductsRowComponent, DataHistoryComponent, HistoryTurnoverComponent, HistoryResultsComponent],
     imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, BrowserAnimationsModule, NzMenuModule, NzIconModule, NzLayoutModule, NzBreadCrumbModule, NzGridModule, NzCascaderModule, NzSelectModule, NzButtonModule, NzDividerModule, NzStatisticModule, NzInputModule, NzNotificationModule, NzTableModule, ReactiveFormsModule, HttpClientXsrfModule.withOptions({
         headerName: 'X-CSRFToken', cookieName: 'csrftoken'
-    }), NzInputNumberModule, NzSwitchModule, NzTabsModule, NgxChartsModule],
+    }), NzInputNumberModule, NzSwitchModule, NzTabsModule, NgxChartsModule, NzBadgeModule, NzCardModule],
     providers: [{
         provide: NZ_I18N, useValue: fr_FR
     }, ProductsService, NotificationService, CategoriesService, {

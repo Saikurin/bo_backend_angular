@@ -1,8 +1,11 @@
 <app-breadcrumb [parents]="['Analyses']"></app-breadcrumb>
 <div class="inner-content">
     <nz-tabset>
-        <nz-tab nzTitle="Chiffre d'affaire">
+        <nz-tab nzTitle="Chiffre d'affaires">
             <app-history-turnover></app-history-turnover>
+        </nz-tab>
+        <nz-tab nzTitle="Résultat comptable / Impots">
+            <app-history-results></app-history-results>
         </nz-tab>
     </nz-tabset>
 </div>

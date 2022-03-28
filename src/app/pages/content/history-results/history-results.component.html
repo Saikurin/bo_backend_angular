@@ -1,0 +1,21 @@
+<nz-row>
+    <nz-col nzSpan="4">
+        <nz-select (ngModelChange)="selectYear($event)" [ngModel]="getCurrentYear()"
+                   nzPlaceHolder="Selectionner une année"
+                   style="width: 100%">
+            <nz-option *ngFor="let year of getAllYearsProducts()" [nzLabel]="year"
+                       [nzValue]="year"></nz-option>
+        </nz-select>
+    </nz-col>
+</nz-row>
+
+<nz-row>
+    <nz-col nzSpan="12" style="margin-top: 1.2rem;">
+        <h1>Résultat comptable annuel</h1>
+        <h2>{{accounting_result}} €</h2>
+    </nz-col>
+    <nz-col nzSpan="12" style="margin-top: 1.2rem;">
+        <h1>Impôts sur les sociétés</h1>
+        <h2>{{societies_taxes}}</h2>
+    </nz-col>
+</nz-row>

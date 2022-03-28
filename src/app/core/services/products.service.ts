@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Product} from "../interfaces/product";
 import {environment} from "../../../environments/environment";
+import * as moment from "moment";
 
 @Injectable({
     providedIn: 'root'
@@ -40,5 +41,99 @@ export class ProductsService {
 
     updateMassive(products: Product[]) {
         return this.http.post(environment.api_url + "/products/update_inventories/", products);
+    }
+
+    getQuarterlyRevenues(year: number, number: string, products: Product[]) {
+        let quarterly = 0;
+        products.map(p => {
+            p.histories.map(history => {
+                let created_at = moment(history.created_at);
+                if (created_at.year() === year) {
+                    if (history.type === 'retrait-par-vente') {
+                        switch (number) {
+                            case '1':
+                                if (created_at.month() === 0 || created_at.month() === 1 || created_at.month() === 2) {
+                                    quarterly += p.price * history.quantity;
+                                }
+                                break;
+                            case '2':
+                                if (created_at.month() === 3 || created_at.month() === 4 || created_at.month() === 5) {
+                                    quarterly += p.price * history.quantity;
+                                }
+                                break;
+                            case '3':
+                                if (created_at.month() === 6 || created_at.month() === 7 || created_at.month() === 8) {
+                                    quarterly += p.price * history.quantity;
+                                }
+                                break;
+                            case '4':
+                                if (created_at.month() === 9 || created_at.month() === 10 || created_at.month() === 11) {
+                                    quarterly += p.price * history.quantity;
+                                }
+                                break;
+                        }
+                    }
+                }
+            })
+        })
+        return quarterly + " €"
+    }
+
+    getMonthlyRevenues(year: number, month: any, products: Product[]) {
+        let monthly = 0;
+        products.map(p => {
+            p.histories.map(history => {
+                let created_at = moment(history.created_at);
+                if (created_at.year() === year) {
+                    if (history.type === 'retrait-par-vente') {
+                        if (month.toLowerCase() === created_at.format('MMMM')) {
+                            monthly += p.price * history.quantity;
+                        }
+                    }
+                }
+            });
+        });
+        return monthly + " €";
+    }
+
+    getAccountingResults(products: Product[], year: number = moment().year()) {
+        let purchase_expense = 0;
+        products.map(p => {
+            p.histories.map(h => {
+                let created_at = moment(h.created_at);
+                if (created_at.year() === year) {
+                    purchase_expense += p.price_on_purchase * h.quantity;
+                }
+            })
+        })
+        return this.getTurnover(products, year) - purchase_expense;
+    }
+
+    private getTurnover(products: Product[], year = moment().year()) {
+        let turnoverGlobal = 0;
+        products.map(p => {
+            p.histories.map(history => {
+                let created_at = moment(history.created_at);
+                if (created_at.year() === year) {
+                    if (history.type === 'retrait-par-vente') {
+                        turnoverGlobal += p.price * history.quantity;
+                    }
+                }
+            })
+        })
+        return turnoverGlobal;
+    }
+
+    getYears(products: Product[]) {
+        let years: number[] = [];
+        products.map(p => {
+            p.histories.map(history => {
+                if (history.type === 'retrait-par-vente') {
+                    let created_at = moment(history.created_at);
+                    years.push(created_at.year());
+                }
+            })
+        })
+        return [...new Set(years)];
     }
 }

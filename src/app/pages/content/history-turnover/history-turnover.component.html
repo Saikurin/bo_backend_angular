@@ -1,0 +1,47 @@
+<nz-row>
+    <nz-col nzSpan="4">
+        <nz-select (ngModelChange)="selectYear($event)" [ngModel]="getCurrentYear()"
+                   nzPlaceHolder="Selectionner une année"
+                   style="width: 100%">
+            <nz-option *ngFor="let year of getAllYearsProducts()" [nzLabel]="year"
+                       [nzValue]="year"></nz-option>
+        </nz-select>
+    </nz-col>
+</nz-row>
+<nz-row style="margin-top: 1.4rem;">
+    <nz-col nzSpan="6">
+        <nz-card nzTitle="Annuel">
+            <h1>{{turnover}} €</h1>
+        </nz-card>
+        <nz-card nzTitle="Trimestrielle" style="margin-top: 1.4rem;">
+            <nz-select nzAllowClear nzPlaceHolder="Selectionner un trimestre" nzShowSearch style="width:100%" [ngModel]="'1'" (ngModelChange)="onSelectQuarterly($event)">
+                <nz-option nzLabel="1er trimestre" nzValue="1"></nz-option>
+                <nz-option nzLabel="2ème trimestre" nzValue="2"></nz-option>
+                <nz-option nzLabel="3ème trimestre" nzValue="3"></nz-option>
+                <nz-option nzLabel="4ème trimestre" nzValue="4"></nz-option>
+            </nz-select>
+            <h1 style="margin-top: 1rem;">{{quarterlyRevenues}}</h1>
+        </nz-card>
+        <nz-card nzTitle="Mensuel" style="margin-top: 1.4rem;">
+            <nz-select nzAllowClear nzPlaceHolder="Séléctionner un mois" nzShowSearch style="width: 100%" [ngModel]="getCurrentMonth()" (ngModelChange)="onSelectMonth($event)">
+                <nz-option *ngFor="let month of months" [nzLabel]="month" [nzValue]="month"></nz-option>
+            </nz-select>
+            <h1 style="margin-top: 1rem;">{{monthlyRevenues}}</h1>
+
+        </nz-card>
+    </nz-col>
+    <nz-col nzOffset="1" nzSpan="17">
+        <nz-card nzTitle="Mensuel">
+                <ngx-charts-line-chart *ngIf="dataTurnoverReady"
+                                   [legend]="true"
+                                   [results]="dataTurnover"
+                                   [showXAxisLabel]="true"
+                                   [showYAxisLabel]="true"
+                                   [view]=[1500,530]
+                                   [xAxis]="true"
+                                   [yAxis]="true"
+            >
+            </ngx-charts-line-chart>
+        </nz-card>
+    </nz-col>
+</nz-row>
