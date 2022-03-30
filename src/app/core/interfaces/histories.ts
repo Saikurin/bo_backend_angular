@@ -5,5 +5,6 @@ export interface Histories {
     created_at: Date,
     product: Product,
     quantity: number,
-    type: string
+    type: string,
+    price: number
 }

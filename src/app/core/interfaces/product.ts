@@ -1,8 +1,9 @@
 import {Histories} from "./histories";
+import {Categories} from "./categories";
 
 export interface Product {
     comments: string,
-    category: number,
+    category: Categories,
     availability: boolean,
     id: number,
     price: number,

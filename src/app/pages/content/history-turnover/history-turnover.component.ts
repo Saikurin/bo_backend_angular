@@ -44,8 +44,8 @@ export class HistoryTurnoverComponent implements OnInit {
                 let created_at = moment(history.created_at);
                 if (created_at.year() === year) {
                     if (history.type === 'retrait-par-vente') {
-                        turnover = p.price * history.quantity;
-                        turnoverGlobal += p.price * history.quantity;
+                        turnover = history.price * history.quantity;
+                        turnoverGlobal += history.price * history.quantity;
                         if (this.dataTurnover) {
                             let index = this.dataTurnover[0].series.findIndex(serie => {
                                 return serie.name.toLowerCase() === created_at.format('MMMM').toLowerCase();

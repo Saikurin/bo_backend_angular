@@ -4,14 +4,20 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class HistoriesService {
 
-    constructor(private http: HttpClient) {
-    }
+  constructor(private http: HttpClient) {
+  }
 
-    addHistories(histories: Histories[]) {
-        return this.http.post(environment.api_url + "/histories/", histories);
-    }
+  addHistories(histories: Histories[]) {
+    return this.http.post(environment.api_url + "/histories/", histories);
+  }
+
+  addHistory(history: Histories) {
+    let histories = [];
+    histories.push(history);
+    return this.addHistories(histories);
+  }
 }

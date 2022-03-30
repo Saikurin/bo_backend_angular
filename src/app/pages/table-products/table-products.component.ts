@@ -85,7 +85,7 @@ export class TableProductsComponent implements OnInit {
                     if ('remove' in o && o['remove'] > 0) {
                         if (product) {
                             let history: Histories = {
-                                product: product, quantity: o.remove, type: o.reason, created_at: new Date()
+                                product: product, quantity: o.remove, type: o.reason, created_at: new Date(), price: (product.price_on_sale * o.remove)
                             }
                             histories.push(history);
                         }
@@ -93,7 +93,7 @@ export class TableProductsComponent implements OnInit {
                     if ('add' in o && o['add'] > 0) {
                         if (product) {
                             let history: Histories = {
-                                product: product, quantity: o.add, type: 'ajout', created_at: new Date()
+                                product: product, quantity: o.add, type: 'ajout', created_at: new Date(), price: 0
                             }
                             histories.push(history);
                         }
