@@ -1,0 +1,85 @@
+<app-breadcrumb [parents]="['Home']"></app-breadcrumb>
+<div class="inner-content">
+  <h1>S'inscrire</h1>
+  <nz-row>
+    <nz-col nzOffset="9" nzSpan="6">
+      <b style="color: red;">{{errorMessage}}</b>
+      <hr *ngIf="errorMessage">
+      <form (ngSubmit)="submitForm()" [formGroup]="validateForm" nz-form>
+        <nz-form-item>
+          <nz-form-label [nzSm]="24" [nzXs]="24" nzFor="email" nzRequired style="text-align: center">E-mail
+          </nz-form-label>
+          <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+            <input formControlName="email" id="email" nz-input/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="24" [nzXs]="24" nzFor="password" nzRequired style="text-align: center">Password
+          </nz-form-label>
+          <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Merci de saisir un mot de passe!">
+            <input
+              (ngModelChange)="updateConfirmValidator()"
+              formControlName="password"
+              id="password"
+              nz-input
+              type="password"
+            />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="24" [nzXs]="24" nzFor="checkPassword" nzRequired style="text-align: center">
+            Confirmation du mot de passe
+          </nz-form-label>
+          <nz-form-control [nzErrorTip]="errorTpl" [nzSm]="24" [nzXs]="24">
+            <input formControlName="password2" id="checkPassword" nz-input type="password"/>
+            <ng-template #errorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">Merci de confirmer le mot de passe!</ng-container>
+              <ng-container *ngIf="control.hasError('confirm')">
+                Les deux mots de passe ne sont pas identiques
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label
+            [nzSm]="24"
+            [nzXs]="24"
+            nzFor="username"
+            nzRequired
+            style="text-align: center"
+          >
+            <span>Pseudo</span>
+          </nz-form-label>
+          <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Merci de renseigner un pseudo!">
+            <input formControlName="username" id="username" nz-input/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="24" [nzXs]="24" nzFor="firstname" nzRequired style="text-align: center">Prénom
+          </nz-form-label>
+          <nz-form-control
+            [nzSm]="24"
+            [nzValidateStatus]="validateForm.controls['first_name']"
+            [nzXs]="24"
+            nzErrorTip="Merci de renseigner votre prénom !"
+          >
+            <input formControlName="first_name" id="'firstname'" nz-input/>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="24" [nzXs]="24" nzFor="lastname" nzRequired style="text-align: center">Nom de famille
+          </nz-form-label>
+          <nz-form-control
+            [nzSm]="24"
+            [nzValidateStatus]="validateForm.controls['last_name']"
+            [nzXs]="24"
+            nzErrorTip="Merci de renseigner votre nom de famille !"
+          >
+            <input formControlName="last_name" id="'lastname'" nz-input/>
+          </nz-form-control>
+        </nz-form-item>
+        <button nz-button nzType="primary">S'inscrire</button>
+      </form>
+    </nz-col>
+  </nz-row>
+</div>

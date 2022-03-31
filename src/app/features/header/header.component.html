@@ -4,19 +4,34 @@
             Home
         </a>
     </li>
-    <li nz-menu-item nzMatchRouter>
+    <li nz-menu-item nzMatchRouter *ngIf="isAuth">
         <a routerLink="product">
             Details produit
         </a>
     </li>
-    <li nz-menu-item nzMatchRouter>
+    <li nz-menu-item nzMatchRouter *ngIf="isAuth">
         <a routerLink="table-products">
             Tableaux produits
         </a>
     </li>
-    <li nz-menu-item nzMatchRouter>
+    <li nz-menu-item nzMatchRouter *ngIf="isAuth">
         <a routerLink="data-history">
             Données à historique
+        </a>
+    </li>
+    <li nz-menu-item nzMatchRouter *ngIf="!isAuth">
+        <a routerLink="login">
+            Se connecter
+        </a>
+    </li>
+    <li nz-menu-item nzMatchRouter *ngIf="!isAuth">
+        <a routerLink="register">
+            S'inscrire
+        </a>
+    </li>
+    <li nz-menu-item nzMatchRouter *ngIf="isAuth">
+        <a (click)="logout()">
+            Se déconnecter
         </a>
     </li>
 </ul>

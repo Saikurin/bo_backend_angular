@@ -35,27 +35,42 @@ import {ProductsRowComponent} from './features/products-row/products-row.compone
 import {CsrfInterceptor} from "./core/interceptors/csrf.interceptor";
 import {NzInputNumberModule} from "ng-zorro-antd/input-number";
 import {NzSwitchModule} from "ng-zorro-antd/switch";
-import { DataHistoryComponent } from './pages/data-history/data-history.component';
+import {DataHistoryComponent} from './pages/data-history/data-history.component';
 import {NzTabsModule} from "ng-zorro-antd/tabs";
-import { HistoryTurnoverComponent } from './pages/content/history-turnover/history-turnover.component';
+import {HistoryTurnoverComponent} from './pages/content/history-turnover/history-turnover.component';
 import {NgxChartsModule} from "@swimlane/ngx-charts";
 import {NzBadgeModule} from "ng-zorro-antd/badge";
 import {NzCardModule} from "ng-zorro-antd/card";
-import { HistoryResultsComponent } from './pages/content/history-results/history-results.component';
+import {HistoryResultsComponent} from './pages/content/history-results/history-results.component';
+import {LoginComponent} from './pages/login/login.component';
+import {NzFormModule} from "ng-zorro-antd/form";
+import {NzCheckboxModule} from "ng-zorro-antd/checkbox";
+import {JwtModule} from "@auth0/angular-jwt";
+import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
+import { RegisterComponent } from './pages/register/register.component';
 
 registerLocaleData(fr);
 
+export function tokenGetter() {
+  return localStorage.getItem("access_token");
+}
+
 @NgModule({
-    declarations: [AppComponent, HomeComponent, HeaderComponent, FooterComponent, BreadcrumbComponent, DetailsProduitComponent, TableProductsComponent, ProductsRowComponent, DataHistoryComponent, HistoryTurnoverComponent, HistoryResultsComponent],
-    imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, BrowserAnimationsModule, NzMenuModule, NzIconModule, NzLayoutModule, NzBreadCrumbModule, NzGridModule, NzCascaderModule, NzSelectModule, NzButtonModule, NzDividerModule, NzStatisticModule, NzInputModule, NzNotificationModule, NzTableModule, ReactiveFormsModule, HttpClientXsrfModule.withOptions({
-        headerName: 'X-CSRFToken', cookieName: 'csrftoken'
-    }), NzInputNumberModule, NzSwitchModule, NzTabsModule, NgxChartsModule, NzBadgeModule, NzCardModule],
-    providers: [{
-        provide: NZ_I18N, useValue: fr_FR
-    }, ProductsService, NotificationService, CategoriesService, {
-        provide: HTTP_INTERCEPTORS, useClass: CsrfInterceptor, multi: true
-    }],
-    bootstrap: [AppComponent]
+  declarations: [AppComponent, HomeComponent, HeaderComponent, FooterComponent, BreadcrumbComponent, DetailsProduitComponent, TableProductsComponent, ProductsRowComponent, DataHistoryComponent, HistoryTurnoverComponent, HistoryResultsComponent, LoginComponent, RegisterComponent],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, BrowserAnimationsModule, NzMenuModule, NzIconModule, NzLayoutModule, NzBreadCrumbModule, NzGridModule, NzCascaderModule, NzSelectModule, NzButtonModule, NzDividerModule, NzStatisticModule, NzInputModule, NzNotificationModule, NzTableModule, ReactiveFormsModule, HttpClientXsrfModule.withOptions({
+    headerName: 'X-CSRFToken', cookieName: 'csrftoken'
+  }), NzInputNumberModule, NzSwitchModule, NzTabsModule, NgxChartsModule, NzBadgeModule, NzCardModule, NzFormModule, NzCheckboxModule, JwtModule.forRoot({
+    config: {
+      tokenGetter: tokenGetter,
+      allowedDomains: ["localhost:8000"],
+    },
+  })],
+  providers: [{
+    provide: NZ_I18N, useValue: fr_FR
+  }, ProductsService, NotificationService, CategoriesService, {
+    provide: HTTP_INTERCEPTORS, useClass: CsrfInterceptor, multi: true
+  }, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

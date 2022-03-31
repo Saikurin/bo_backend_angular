@@ -1,0 +1,30 @@
+<app-breadcrumb [parents]="['Home']"></app-breadcrumb>
+<div class="inner-content">
+  <h1>Se connecter</h1>
+  <nz-row>
+    <nz-col nzOffset="9" nzSpan="6">
+      <form (ngSubmit)="submitForm()" [formGroup]="validateForm" class="login-form" nz-form>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Merci de saisir votre identifiant !">
+            <nz-input-group nzPrefixIcon="user">
+              <input formControlName="userName" nz-input placeholder="Username" type="text"/>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Merci de saisir votre mot de passe !">
+            <nz-input-group nzPrefixIcon="lock">
+              <input formControlName="password" nz-input placeholder="Password" type="password"/>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <div [nzSpan]="12" nz-col>
+          <a class="login-form-forgot">Forgot password</a>
+        </div>
+        <button [nzType]="'primary'" class="login-form-button login-form-margin" nz-button>Log in</button>
+        Or
+        <a>register now!</a>
+      </form>
+    </nz-col>
+  </nz-row>
+</div>
